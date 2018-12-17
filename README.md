@@ -27,6 +27,9 @@ jQuery App is currently built with JavaScript for basic front-end coding, jQuery
 
 ## User Interfaces (UI)
 
+###3 Add New User
+![Alt text](/Content/iamges/screenshots/users-add-new.JPG?raw=true "Add New user")
+
 
 ## Contributions
 You can checkin code using COMMON GIT COMMMANDS like: git add --all git commit -am "CRUD" git push
