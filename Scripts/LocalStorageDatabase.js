@@ -4,6 +4,7 @@ let database = new function () {
     /* saves one item or a list of items */
     this.save = function (key, data) {
         let items = database.merge(key, data);
+        //console.log({key: key, model: items});
         localStorage.setItem(key, JSON.stringify(items));
     };
 
@@ -20,13 +21,13 @@ let database = new function () {
     };
 
     this.sort = function (data) {
-        let scoreSorted = data.sort(function (first, second) {
-            if (first.score === second.score) {
+        let sortSorted = data.sort(function (first, second) {
+            if (first.sort === second.sort) {
                 return (second.lastName > first.lastName ? 1 : -1);
             }
-            return (second.score - first.score);
+            return (second.sort - first.sort);
         });
-        return scoreSorted;
+        return sortSorted;
     }
 
     /* syncs both additions or modifications of data */
@@ -37,9 +38,11 @@ let database = new function () {
             dataItems = JSON.parse(items);
             let item = data;
             let found = false;
-            if ((!item.Id) || (item.Id.length === 0) || (item.Id === 0)) {
+
+            if ((!item.Id) || (item.Id.trim().length === 0) || (item.Id.trim() === '')) {
                 item.Id = database.getGuid();
             }
+
             if (dataItems.length > 0) {
                 for (let d = 0; d < dataItems.length; d++) {
                     if (dataItems[d].Id === item.Id) {
@@ -62,7 +65,7 @@ let database = new function () {
             Id: '',
             firstName: '',
             lastName: '',
-            score: 0
+            sort: 0
         }
         return model;
     }
