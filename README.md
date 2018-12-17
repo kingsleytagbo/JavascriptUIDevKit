@@ -6,11 +6,11 @@ jQuery App is currently built with JavaScript for basic front-end coding, jQuery
 
 
 ## Features
-
+- Users - Add, Edit, Delete, List
 
 ## Roadmap
 - [x] Data Access  
-- [ ] User Management
+- [x] User Management
 - [ ] Roles & Permissions Management
 - [ ] Authentication & Authorization
 - [ ] Searching

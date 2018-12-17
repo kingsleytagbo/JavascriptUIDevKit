@@ -63,8 +63,11 @@
                     </div>
                 </form>
             </div>
-            <div class="card-footer" style="display:none;"> <button type="button" class="btn btn-info" id="btnSave" onclick="return saveForm();">Save</button><button
-                    type="button" class="btn btn-default" id="btnCancel" onclick="return cancelForm(this);">Cancel</button></div>
+            <div class="card-footer" style="display:none;">
+                <button type="button" class="btn btn-info" id="btnSave" onclick="return saveForm();">Save</button>
+                <button type="button" class="btn btn-default" id="btnCancel" onclick="return cancelForm(this);">Cancel</button>
+                <button type="button" class="btn btn-danger" id="btnDelete" onclick="return deleteForm(this);">Delete</button>
+            </div>
         </div>
         <p>
             <hr />
@@ -90,7 +93,7 @@
                             Last Name
                         </th>
                         <th colspan="2">
-                           Sorting
+                            Sorting
                         </th>
                     </tr>
                 </thead>
@@ -156,8 +159,8 @@
             let id = 1;
             let result = database.fetch(DATA_KEYID);
             //let result = data; //JSON.parse(data);
-            var html = '';
-            var count = result.length + 1;
+            let html = '';
+            let count = result.length + 1;
 
             $.each(result, function (key, item) {
                 count -= 1;
@@ -177,9 +180,9 @@
             $('#Description').css('border-color', 'lightgrey');
             let result = database.getModel();//JSON.parse(data);
             let items = database.fetch(DATA_KEYID);
-            if(items && items.length > 0){
-                for (i = 0; i< items.length; i++){
-                    if(items[i].Id == ID){
+            if (items && items.length > 0) {
+                for (i = 0; i < items.length; i++) {
+                    if (items[i].Id == ID) {
                         result = items[i];
                         break;
                     }
@@ -197,21 +200,37 @@
             return false;
         }
 
-        //Add Data Function
+        //Save Data Function
         function saveForm() {
-            var res = validate();
+            let res = validate();
             if (res == false) {
                 return false;
             }
 
-            var model = {};
+            let model = {};
             $('#contactForm').find('input, select, textarea').each(function () {
-                var key = $(this).attr('id');
-                var val = $("#" + key).val() || ' ';
+                let key = $(this).attr('id');
+                let val = $("#" + key).val() || ' ';
                 model[key] = val;
             });
-            
+
             database.save(DATA_KEYID, model);
+            clearForm();
+            toggleForm($('#contactHeader'));
+            loadData();
+        }
+
+        function deleteForm() {
+            let model = {};
+
+            $('#contactForm').find('input, select, textarea').each(function () {
+                let key = $(this).attr('id');
+                let val = $("#" + key).val() || ' ';
+                model[key] = val;
+            });
+
+            database.removeOne(DATA_KEYID, model);
+
             clearForm();
             toggleForm($('#contactHeader'));
             loadData();
@@ -219,7 +238,7 @@
 
         //Valdidation using jquery
         function validate() {
-            var isValid = true;
+            let isValid = true;
             if ($('#firstName').val().trim() == "") {
                 $('#lastName').css('border-color', 'Red');
                 isValid = false;
