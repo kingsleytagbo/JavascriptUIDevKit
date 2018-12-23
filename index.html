@@ -28,13 +28,13 @@
 
         <!-- BEGIN CONTACT CARD -->
         <div class="card card-info">
-            <a id="contacts-top" name="contacts-top" href="#"></a>
-            <div class="card-header" id="contactHeader" name="contactHeader">
+            <a id="users-top" name="users-top" href="#"></a>
+            <div class="card-header" id="userHeader" name="userHeader">
                 <button type="button" class="btn btn-default btn-block" id="btn ToggleForm" onclick="return UserModule.toggleForm(this);"><h4>Manage
                         User
                     </h4></button></div>
             <div class="card-body" style="display:none;">
-                <form id="contactForm" name="contactForm">
+                <form id="userForm" name="userForm">
                     <div class="row">
                         <div class="form-group col-md-12">
                             <label>First Name:</label>
@@ -123,7 +123,7 @@
         const UserModule = (function () {
             // your module code goes here
             const DATA_KEYID = 'Forms';
-            const formName = 'contactForm';
+            const formName = 'userForm';
 
             return {
                 cancelForm: function (self) {
@@ -170,14 +170,14 @@
                     let result = database.selectOne(ID, DATA_KEYID);
 
                     // Put the value of each field back into the form
-                    $('#contactForm').find('input, select, textarea').each(function () {
+                    $('#' + formName).find('input, select, textarea').each(function () {
                         let id = $(this).attr('id');
                         let val = (result[id]) || '';
                         $(this).val(val);
                     });
 
-                    $('#contactForm').closest('.card').find('.card-body').show();
-                    $('#contactForm').closest('.card').find('.card-footer').show();
+                    $('#' + formName).closest('.card').find('.card-body').show();
+                    $('#' + formName).closest('.card').find('.card-footer').show();
 
                     return false;
                 },
@@ -192,7 +192,7 @@
 
                     //get the value of all the fields on the form
                     let model = {};
-                    $('#contactForm').find('input, select, textarea').each(function () {
+                    $('#' + formName).find('input, select, textarea').each(function () {
                         let key = $(this).attr('id');
                         let val = $("#" + key).val() || ' ';
                         model[key] = val;
@@ -202,7 +202,7 @@
                     database.save(DATA_KEYID, model);
                     UserModule.clearForm();
 
-                    UserModule.toggleForm($('#contactHeader'));
+                    UserModule.toggleForm($('#userHeader'));
 
                     //refresh the data on the page after saving it
                     UserModule.loadData();
@@ -211,7 +211,7 @@
                 deleteForm: function () {
                     let model = {};
 
-                    $('#contactForm').find('input, select, textarea').each(function () {
+                    $('#' + formName).find('input, select, textarea').each(function () {
                         let key = $(this).attr('id');
                         let val = $("#" + key).val() || ' ';
                         model[key] = val;
@@ -220,7 +220,7 @@
                     database.removeOne(DATA_KEYID, model);
 
                     UserModule.clearForm();
-                    UserModule.toggleForm($('#contactHeader'));
+                    UserModule.toggleForm($('#userHeader'));
                     UserModule.loadData();
                 },
 
