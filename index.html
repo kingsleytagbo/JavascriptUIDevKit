@@ -30,8 +30,8 @@
         <div class="card card-info">
             <a id="contacts-top" name="contacts-top" href="#"></a>
             <div class="card-header" id="contactHeader" name="contactHeader">
-                <button type="button" class="btn btn-default btn-block" id="btn ToggleForm" onclick="return toggleForm(this);"><h4>Add
-                        New
+                <button type="button" class="btn btn-default btn-block" id="btn ToggleForm" onclick="return UserModule.toggleForm(this);"><h4>Manage
+                        User
                     </h4></button></div>
             <div class="card-body" style="display:none;">
                 <form id="contactForm" name="contactForm">
@@ -64,9 +64,9 @@
                 </form>
             </div>
             <div class="card-footer" style="display:none;">
-                <button type="button" class="btn btn-info" id="btnSave" onclick="return saveForm();">Save</button>
-                <button type="button" class="btn btn-default" id="btnCancel" onclick="return cancelForm(this);">Cancel</button>
-                <button type="button" class="btn btn-danger" id="btnDelete" onclick="return deleteForm(this);">Delete</button>
+                <button type="button" class="btn btn-info" id="btnSave" onclick="return UserModule.saveForm();">Save</button>
+                <button type="button" class="btn btn-default" id="btnCancel" onclick="return UserModule.cancelForm(this);">Cancel</button>
+                <button type="button" class="btn btn-danger" id="btnDelete" onclick="return UserModule.deleteForm(this);">Delete</button>
             </div>
         </div>
         <p>
@@ -120,151 +120,147 @@
     <!--BEGIN JAVASCRIPT CODE -->
 
     <script type="text/javascript">
+        const UserModule = (function () {
+            // your module code goes here
+            const DATA_KEYID = 'Forms';
+            const formName = 'contactForm';
 
-        const DATA_KEYID = 'Forms';
+            return {
+                cancelForm: function (self) {
+                    $(self).closest('.card').find('.card-body').toggle();
+                    $(self).closest('.card').find('.card-footer').toggle();
+                    clearForm();
+                },
 
-        $(document).ready(function () {
-            //database.removeAll(DATA_KEYID);
-            loadData();
-        });
+                toggleForm: function (self) {
+                    $(self).closest('.card').find('.card-body').toggle();
+                    $(self).closest('.card').find('.card-footer').toggle();
+                },
 
-        function ajax(data) {
-            if (data.url && data.url.length > 0) {
-                data.success(items[0]);
-            }
-            else {
-                data.success(items);
-            }
-        }
+                clearForm: function () {
+                    $('#' + formName).find('input, select, textarea').each(function () {
+                        $(this).val('');
+                    });
+                },
 
-        function cancelForm(self) {
-            $(self).closest('.card').find('.card-body').toggle();
-            $(self).closest('.card').find('.card-footer').toggle();
-            clearForm();
-        }
+                //Load Data function
+                loadData: function () {
 
-        function toggleForm(self) {
-            $(self).closest('.card').find('.card-body').toggle();
-            $(self).closest('.card').find('.card-footer').toggle();
-        }
+                    let result = database.fetch(DATA_KEYID);
+                    let html = '';
+                    let count = result.length + 1;
 
-        function clearForm() {
-            $('#contactForm').find('input, select, textarea').each(function () {
-                $(this).val('');
-            });
-        }
+                    $.each(result, function (key, item) {
+                        count -= 1;
+                        html += '<tr>';
+                        html += '<td  colspan="4">' + '<span><strong>' + count + '<br /> </strong></span>' + '<a class="btn btn-sm btn-outline btn-warning" href="#" onclick="return UserModule.getbyID(' + "'" + item.Id + "'" + ')">Edit</a> </td>';
+                        html += '<td  colspan="3">' + '<p><span>' + (item.firstName ? item.firstName : '') + '</td>';
+                        html += '<td  colspan="3">' + '<p><span>' + (item.lastName ? item.lastName : '') + '</td>';
+                        html += '<td  colspan="2">' + '<p><span>' + (item.sort ? item.sort : '') + '</td>';
+                        html += '</tr>';
+                    });
 
-        //Load Data function
-        function loadData() {
-            let id = 1;
-            let result = database.fetch(DATA_KEYID);
-            //let result = data; //JSON.parse(data);
-            let html = '';
-            let count = result.length + 1;
+                    $('.tbody').html(html);
+                },
 
-            $.each(result, function (key, item) {
-                count -= 1;
-                html += '<tr>';
-                html += '<td  colspan="4">' + '<span><strong>' + count + '<br /> </strong></span>' + '<a class="btn btn-sm btn-outline btn-warning" href="#" onclick="return getbyID(' + "'" + item.Id + "'" + ')">Edit</a> </td>';
-                html += '<td  colspan="3">' + '<p><span>' + (item.firstName ? item.firstName : '') + '</td>';
-                html += '<td  colspan="3">' + '<p><span>' + (item.lastName ? item.lastName : '') + '</td>';
-                html += '<td  colspan="2">' + '<p><span>' + (item.sort ? item.sort : '') + '</td>';
-                html += '</tr>';
-            });
-            $('.tbody').html(html);
-        }
+                // Select one item using a unique key
+                getbyID: function (ID) {
 
-        //Function for getting the Data Based upon ReferenceList ID
-        function getbyID(ID) {
-            $('#Name').css('border-color', 'lightgrey');
-            $('#Description').css('border-color', 'lightgrey');
-            let result = database.getModel();//JSON.parse(data);
-            let items = database.fetch(DATA_KEYID);
-            if (items && items.length > 0) {
-                for (i = 0; i < items.length; i++) {
-                    if (items[i].Id == ID) {
-                        result = items[i];
-                        break;
+                    //get one item from a collection based on the item's unique key
+                    let result = database.selectOne(ID, DATA_KEYID);
+
+                    // Put the value of each field back into the form
+                    $('#contactForm').find('input, select, textarea').each(function () {
+                        let id = $(this).attr('id');
+                        let val = (result[id]) || '';
+                        $(this).val(val);
+                    });
+
+                    $('#contactForm').closest('.card').find('.card-body').show();
+                    $('#contactForm').closest('.card').find('.card-footer').show();
+
+                    return false;
+                },
+
+                //Save Data Function
+                saveForm: function () {
+                    // allow a save if all the needed fields are present on the form.
+                    let res = UserModule.validate();
+                    if (res == false) {
+                        return false;
                     }
+
+                    //get the value of all the fields on the form
+                    let model = {};
+                    $('#contactForm').find('input, select, textarea').each(function () {
+                        let key = $(this).attr('id');
+                        let val = $("#" + key).val() || ' ';
+                        model[key] = val;
+                    });
+
+                    //save the values on the form to a data store
+                    database.save(DATA_KEYID, model);
+                    UserModule.clearForm();
+
+                    UserModule.toggleForm($('#contactHeader'));
+
+                    //refresh the data on the page after saving it
+                    UserModule.loadData();
+                },
+
+                deleteForm: function () {
+                    let model = {};
+
+                    $('#contactForm').find('input, select, textarea').each(function () {
+                        let key = $(this).attr('id');
+                        let val = $("#" + key).val() || ' ';
+                        model[key] = val;
+                    });
+
+                    database.removeOne(DATA_KEYID, model);
+
+                    UserModule.clearForm();
+                    UserModule.toggleForm($('#contactHeader'));
+                    UserModule.loadData();
+                },
+
+                //Valdidation using jquery
+                validate: function () {
+                    let isValid = true;
+                    if ($('#firstName').val().trim() == "") {
+                        $('#lastName').css('border-color', 'red');
+                        isValid = false;
+                    }
+                    else {
+                        $('#firstName').css('border-color', 'green');
+                    }
+
+                    if ($('#lastName').val().trim() == "") {
+                        $('#lastName').css('border-color', 'red');
+                        isValid = false;
+                    }
+                    else {
+                        $('#lastName').css('border-color', 'green');
+                    }
+
+                    if ($('#sort').val().trim() == "") {
+                        $('#sort').css('border-color', 'red');
+                        isValid = false;
+                    }
+                    else {
+                        $('#sort').css('border-color', 'green');
+                    }
+
+                    return isValid;
                 }
             }
 
-            $('#contactForm').find('input, select, textarea').each(function () {
-                let id = $(this).attr('id');
-                let val = (result[id]) || '';
-                $(this).val(val);
-            });
+        }());
 
-            $('#contactForm').closest('.card').find('.card-body').show();
-            $('#contactForm').closest('.card').find('.card-footer').show();
-            return false;
-        }
+        $(document).ready(function () {
+            UserModule.loadData();
+        });
 
-        //Save Data Function
-        function saveForm() {
-            let res = validate();
-            if (res == false) {
-                return false;
-            }
-
-            let model = {};
-            $('#contactForm').find('input, select, textarea').each(function () {
-                let key = $(this).attr('id');
-                let val = $("#" + key).val() || ' ';
-                model[key] = val;
-            });
-
-            database.save(DATA_KEYID, model);
-            clearForm();
-            toggleForm($('#contactHeader'));
-            loadData();
-        }
-
-        function deleteForm() {
-            let model = {};
-
-            $('#contactForm').find('input, select, textarea').each(function () {
-                let key = $(this).attr('id');
-                let val = $("#" + key).val() || ' ';
-                model[key] = val;
-            });
-
-            database.removeOne(DATA_KEYID, model);
-
-            clearForm();
-            toggleForm($('#contactHeader'));
-            loadData();
-        }
-
-        //Valdidation using jquery
-        function validate() {
-            let isValid = true;
-            if ($('#firstName').val().trim() == "") {
-                $('#lastName').css('border-color', 'Red');
-                isValid = false;
-            }
-            else {
-                $('#firstName').css('border-color', 'lightgrey');
-            }
-
-            if ($('#lastName').val().trim() == "") {
-                $('#lastName').css('border-color', 'Red');
-                isValid = false;
-            }
-            else {
-                $('#lastName').css('border-color', 'lightgrey');
-            }
-
-            if ($('#sort').val().trim() == "") {
-                $('#sort').css('border-color', 'Red');
-                isValid = false;
-            }
-            else {
-                $('#sort').css('border-color', 'lightgrey');
-            }
-
-            return isValid;
-        }
     </script>
 
     <!--END JAVASCRIPT CODE-->

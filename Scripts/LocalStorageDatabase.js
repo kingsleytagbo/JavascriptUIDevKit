@@ -70,6 +70,23 @@ let database = new function () {
         return model;
     }
 
+    /* selects one item that matches the item's key */
+    this.selectOne = function (itemKey, itemsKey) {
+        let items = localStorage.getItem(itemsKey);
+        let match = null;
+        if (items) {
+            let dataItems = JSON.parse(items);
+            let i = dataItems.length
+            while (i--) {
+                if (itemKey === dataItems[i].Id) {
+                    match = dataItems[i];
+                    break;
+                }
+            }
+        }
+        return match;
+    }
+
     /* removes one item that matches the key */
     this.removeOne = function (key, data) {
         let items = localStorage.getItem(key);
