@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <title>USER ADMINISTRATION - JAVASCRIPT</title>
 </head>
 
@@ -54,8 +54,8 @@
                     <div class="card card-info mt-2">
                         <a id="users-top" name="users-top" href="#"></a>
                         <div class="card-header" id="userHeader" name="userHeader">
-                            <button type="button" class="btn btn-secondary btn-block" id="btn ToggleForm" onclick="return UserModule.toggleForm(this);">
-                                Manage User
+                            <button type="button" class="btn btn-outline-dark btn-sm btn-block" id="btn ToggleForm" onclick="return UserModule.toggleForm(this);">
+                                    <i class="fa fa-toggle-on"></i>&nbsp;Manage User
                             </button>
                         </div>
                         <div class="card-body" style="display:none;">
@@ -91,9 +91,9 @@
                             </form>
                         </div>
                         <div class="card-footer" style="display:none;">
-                            <button type="button" class="btn btn-info" id="btnSave" onclick="return UserModule.saveForm();">Save</button>
-                            <button type="button" class="btn btn-default" id="btnCancel" onclick="return UserModule.cancelForm(this);">Cancel</button>
-                            <button type="button" class="btn btn-danger" id="btnDelete" onclick="return UserModule.deleteForm(this);">Delete</button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="btnSave" onclick="return UserModule.saveForm();"><i class="fa fa-save"></i>&nbsp;Save</button>
+                            <button type="button" class="btn btn-outline-warning btn-sm" id="btnCancel" onclick="return UserModule.cancelForm(this);"><i class="fa fa-window-close"></i>&nbsp;Cancel</button>
+                            <button type="button" class="btn btn-outline-danger btn-sm" id="btnDelete" onclick="return UserModule.deleteForm(this);"><i class="fa fa-trash"></i>&nbsp;Delete</button>
                         </div>
                     </div>
                     <!-- END USER CARD -->
@@ -184,7 +184,7 @@
                     $.each(result, function (key, item) {
                         count -= 1;
                         html += '<tr>';
-                        html += '<td  colspan="4">' + '<span><strong>' + count + '<br /> </strong></span>' + '<a class="btn btn-sm btn-outline btn-warning" href="#" onclick="return UserModule.getbyID(' + "'" + item.Id + "'" + ')">Edit</a> </td>';
+                        html += '<td  colspan="4">' + '<span><strong>' + '' + '</strong></span>' + '<a class="btn btn-outline-dark btn-block btn-sm" href="#" onclick="return UserModule.getbyID(' + "'" + item.Id + "'" + ')"><i class="fa fa-edit"></i>&nbsp;Edit</a> </td>';
                         html += '<td  colspan="3">' + '<p><span>' + (item.firstName ? item.firstName : '') + '</td>';
                         html += '<td  colspan="3">' + '<p><span>' + (item.lastName ? item.lastName : '') + '</td>';
                         html += '<td  colspan="2">' + '<p><span>' + (item.sort ? item.sort : '') + '</td>';
