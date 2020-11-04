@@ -10,100 +10,156 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
 
-    <title>CRUD - JQUERY</title>
+    <title>USER ADMINISTRATION - JAVASCRIPT</title>
 </head>
 
 <body>
+    <!--
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">
-            <img src="./Content/images/trophy-32px.png" width="21" height="32" class="d-inline-block align-top" title="Home">CRUD
-            - JQUERY
+            <img src="./Content/images/trophy-32px.png" width="21" height="32" class="d-inline-block align-top" title="Home">USER ADMIN   - JAVASCRIPT
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
     </nav>
-    <div class="container">
+-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">USER ADMIN - UI DEV KIT</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsKTCore" aria-controls="navbarsKTCore"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-        <!-- BEGIN CONTACT CARD -->
-        <div class="card card-info">
-            <a id="users-top" name="users-top" href="#"></a>
-            <div class="card-header" id="userHeader" name="userHeader">
-                <button type="button" class="btn btn-default btn-block" id="btn ToggleForm" onclick="return UserModule.toggleForm(this);"><h4>Manage
-                        User
-                    </h4></button></div>
-            <div class="card-body" style="display:none;">
-                <form id="userForm" name="userForm">
-                    <div class="row">
-                        <div class="form-group col-md-12">
-                            <label>First Name:</label>
-                            <input type="text" class="form-control input-md" id="firstName" name="firstName" placeholder="First Name" required />
+        <div class="collapse navbar-collapse" id="navbarsKTCore">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="../">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown" id="navItemRoadmaps">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a id="navItemLogin" name="navItem" href="login.html" class="dropdown-item">Login</a>
+                        <a id="navItemRegister" name="navItem" href="register.html" class="dropdown-item">Register</a>
+                    </div>
+                </li>
+                <!--
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="#">Action</a>
+                    </div>
+                </li>
+                -->
+            </ul>
+            <!--
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            -->
+        </div>
+    </nav>
+    <div role="main" class="container">
+
+        <div class="row">
+            <div class="col-12">
+
+                <div class="pt-2">
+                    <!-- BEGIN CONTACT CARD -->
+                    <div class="card card-info mt-2">
+                        <a id="users-top" name="users-top" href="#"></a>
+                        <div class="card-header" id="userHeader" name="userHeader">
+                                <button type="button" class="btn btn-secondary btn-block" id="createForm" onclick="return AdminPageModule.createForm(this);">
+                                    Manage User
+                                </button>
+                            </div>
+                        <div class="card-body" style="display:none;">
+                            <form id="userForm" name="userForm">
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label>First Name:</label>
+                                        <input type="text" class="form-control input-md" id="firstName" name="firstName" placeholder="First Name" required />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label>Last Name:</label>
+                                        <input type="text" class="form-control input-md" id="lastName" name="lastName" placeholder="Last Name" required />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label>Sorting:</label>
+                                        <span>
+                                            <input type="text" class="form-control input-md" id="sort" name="sort" />
+                                        </span>
+                                    </div>
+                                </div>
+                                <p>
+                                    <hr />
+                                </p>
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <input type="hidden" id="Id" name="Id" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer" style="display:none;">
+                            <button type="button" class="btn btn-info" id="btnSave" onclick="return UserModule.saveForm();">Save</button>
+                            <button type="button" class="btn btn-default" id="btnCancel" onclick="return UserModule.cancelForm(this);">Cancel</button>
+                            <button type="button" class="btn btn-danger" id="btnDelete" onclick="return UserModule.deleteForm(this);">Delete</button>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="form-group col-md-12">
-                            <label>Last Name:</label>
-                            <input type="text" class="form-control input-md" id="lastName" name="lastName" placeholder="Last Name" required />
-                        </div>
+                    <!-- END CONTACT CARD -->
+
+                    <!-- BEGIN CONTACT TABLE -->
+                    <div class="table-responsive mt-2">
+                        <h3 class="text-center">Users</h3>
+                        <table class="table table-striped table-condensed table-hover">
+                            <thead>
+                                <tr>
+                                    <th colspan="4">
+                                        #
+                                    </th>
+                                    <th colspan="3">
+                                        First Name
+                                    </th>
+                                    <th colspan="3">
+                                        Last Name
+                                    </th>
+                                    <th colspan="2">
+                                        Sorting
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbody"></tbody>
+                        </table>
                     </div>
-                    <div class="row">
-                        <div class="form-group col-md-12">
-                            <label>Sorting:</label>
-                            <span> <input type="text" class="form-control input-md" id="sort" name="sort" /></span>
-                        </div>
-                    </div>
-                    <p>
-                        <hr />
-                    </p>
-                    <div class="row">
-                        <div class="form-group col-md-12">
-                            <input type="hidden" id="Id" name="Id" />
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="card-footer" style="display:none;">
-                <button type="button" class="btn btn-info" id="btnSave" onclick="return UserModule.saveForm();">Save</button>
-                <button type="button" class="btn btn-default" id="btnCancel" onclick="return UserModule.cancelForm(this);">Cancel</button>
-                <button type="button" class="btn btn-danger" id="btnDelete" onclick="return UserModule.deleteForm(this);">Delete</button>
+                    <!-- END CONTACT TABLE -->
+                </div>
+
             </div>
         </div>
-        <p>
-            <hr />
-        </p>
-        <!-- END CONTACT CARD -->
 
-        <p>
-            <hr />
-        </p>
-        <!-- BEGIN CONTACT TABLE -->
-        <div class="table-responsive">
-            <h3>Users</h3>
-            <table class="table table-striped table-condensed table-hover">
-                <thead>
-                    <tr>
-                        <th colspan="4">
-                            #
-                        </th>
-                        <th colspan="3">
-                            First Name
-                        </th>
-                        <th colspan="3">
-                            Last Name
-                        </th>
-                        <th colspan="2">
-                            Sorting
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="tbody"></tbody>
-            </table>
-        </div>
-        <!-- END CONTACT TABLE -->
-        <hr />
         <footer>
-            <p>&copy; JQuery Crud.</p>
+            <nav class="navbar fixed-bottom navbar-expand-sm navbar-light bg-light">
+                <a class="navbar-brand mx-auto text-secondary" href="launchfeatures.com">
+                    <small>©&nbsp;All Rights Reserved ...
+                        <br /> JAVASCRIPT UI KIT - LAUNCHFEATURES.COM
+                    </small>
+                </a>
+            </nav>
         </footer>
     </div>
 
