@@ -30,6 +30,10 @@ jQuery App is currently built with JavaScript for basic front-end coding, jQuery
 ### Add New User
 ![Alt text](Content/images/screenshots/users-add-new.JPG?raw=true "Add New user")
 
+![Alt text](Content/images/screenshots/iphone-xl-manage-features?raw=true "Manage Features - IPhone")
+
+![Alt text](Content/images/screenshots/ipad-pro-manage-featuers?raw=true "Manage Features - IPad Pro")
+
 
 ## Contributions
 You can checkin code using COMMON GIT COMMMANDS like: git add --all git commit -am "CRUD" git push
