@@ -30,9 +30,9 @@ jQuery App is currently built with JavaScript for basic front-end coding, jQuery
 ### Add New User
 ![Alt text](Content/images/screenshots/users-add-new.JPG?raw=true "Add New user")
 
-![Alt text](Content/images/screenshots/iphone-xl-manage-features?raw=true "Manage Features - IPhone")
+![Alt text](Content/images/screenshots/iphone-xl-manage-features.png?raw=true "Manage Features - IPhone")
 
-![Alt text](Content/images/screenshots/ipad-pro-manage-featuers?raw=true "Manage Features - IPad Pro")
+![Alt text](Content/images/screenshots/ipad-pro-manage-featuers.png?raw=true "Manage Features - IPad Pro")
 
 
 ## Contributions
