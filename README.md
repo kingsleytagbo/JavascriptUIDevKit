@@ -27,12 +27,14 @@ jQuery App is currently built with JavaScript for basic front-end coding, jQuery
 
 ## User Interfaces (UI)
 
-### Add New User
-![Alt text](Content/images/screenshots/users-add-new.JPG?raw=true "Add New user")
-
-![Alt text](Content/images/screenshots/iphone-xl-manage-features.png?raw=true "Manage Features - IPhone")
-
+### Manage Features
 ![Alt text](Content/images/screenshots/ipad-pro-manage-featuers.png?raw=true "Manage Features - IPad Pro")
+
+### Add New Feature
+![Alt text](Content/images/screenshots/users-add-new.JPG?raw=true "Add New Feature")
+
+### Add New User
+![Alt text](Content/images/screenshots/iphone-xl-manage-features.png?raw=true "Manage Features - IPhone")
 
 
 ## Contributions
