@@ -7,15 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <title>USER ADMINISTRATION - JAVASCRIPT</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+        crossorigin="anonymous">
+    <title>USER ADMINISTRATION - JAVASCRIPT DEV KIT</title>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">USER ADMIN - UI DEV KIT</a>
+        <a class="navbar-brand" href="/">USER ADMIN - JAVASCRIPT DEV KIT</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsKTCore" aria-controls="navbarsKTCore"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -55,7 +56,7 @@
                         <a id="users-top" name="users-top" href="#"></a>
                         <div class="card-header" id="userHeader" name="userHeader">
                             <button type="button" class="btn btn-outline-dark btn-sm btn-block" id="btn ToggleForm" onclick="return UserModule.toggleForm(this);">
-                                    <i class="fa fa-toggle-on"></i>&nbsp;Manage Feature
+                                <i class="fa fa-toggle-on"></i>&nbsp;Manage Feature
                             </button>
                         </div>
                         <div class="card-body" style="display:none;">
@@ -88,9 +89,12 @@
                             </form>
                         </div>
                         <div class="card-footer" style="display:none;">
-                            <button type="button" class="btn btn-outline-dark btn-sm" id="btnSave" onclick="return UserModule.saveForm();"><i class="fa fa-save"></i>&nbsp;Save</button>
-                            <button type="button" class="btn btn-outline-warning btn-sm" id="btnCancel" onclick="return UserModule.cancelForm(this);"><i class="fa fa-window-close"></i>&nbsp;Cancel</button>
-                            <button type="button" class="btn btn-outline-danger btn-sm" id="btnDelete" onclick="return UserModule.deleteForm(this);"><i class="fa fa-trash"></i>&nbsp;Delete</button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="btnSave" onclick="return UserModule.saveForm();">
+                                <i class="fa fa-save"></i>&nbsp;Save</button>
+                            <button type="button" class="btn btn-outline-warning btn-sm" id="btnCancel" onclick="return UserModule.cancelForm(this);">
+                                <i class="fa fa-window-close"></i>&nbsp;Cancel</button>
+                            <button type="button" class="btn btn-outline-danger btn-sm" id="btnDelete" onclick="return UserModule.deleteForm(this);">
+                                <i class="fa fa-trash"></i>&nbsp;Delete</button>
                         </div>
                     </div>
                     <!-- END USER CARD -->
@@ -105,7 +109,7 @@
                                         #
                                     </th>
                                     <th colspan="3">
-                                        Feature 
+                                        Feature
                                     </th>
                                     <th colspan="3">
                                         Name
@@ -128,7 +132,7 @@
             <nav class="navbar fixed-bottom navbar-expand-sm navbar-light bg-light">
                 <a class="navbar-brand mx-auto text-secondary" href="launchfeatures.com">
                     <small>©&nbsp;All Rights Reserved ...
-                        <br /> JAVASCRIPT UI KIT - LAUNCHFEATURES.COM
+                        <br /> JAVASCRIPT UI DEV KIT - LAUNCHFEATURES.COM
                     </small>
                 </a>
             </nav>
@@ -137,14 +141,16 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
 
     <script type="text/javascript" src="./Scripts/LocalStorageDatabase.js"></script>
+
     <!--BEGIN JAVASCRIPT CODE -->
 
     <script type="text/javascript">
