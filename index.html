@@ -150,10 +150,12 @@
         crossorigin="anonymous"></script>
 
     <script type="text/javascript" src="./Scripts/LocalStorageDatabase.js"></script>
+    <script type="text/javascript" src="./Scripts/UserPageModule.js"></script>
 
     <!--BEGIN JAVASCRIPT CODE -->
 
     <script type="text/javascript">
+    /*
         const UserModule = (function () {
             // your module code goes here
             const DATA_KEYID = 'Forms';
@@ -294,6 +296,11 @@
         $(document).ready(function () {
             UserModule.loadData();
         });
+    */
+
+    $(document).ready(function () {
+        UserModule.loadData();
+    });
 
     </script>
 
@@ -302,3 +309,4 @@
 </body>
 
 </html>
+

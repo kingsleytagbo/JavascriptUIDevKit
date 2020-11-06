@@ -1,5 +1,5 @@
 /* Manages LocalStorage data operations */
-let database = new function () {
+const database = new function () {
 
     /* saves one item or a list of items */
     this.save = function (key, data) {

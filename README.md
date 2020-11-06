@@ -1,5 +1,5 @@
 # The JavaScript UI Dev KIT
-> A JavaScript + JQuery Toolkit that helps you build the front-end features needed by your app or website like pages, forms, administrative & management user interfaces (UI) for manging your data, users and business processes.
+The JAVASCRIPT User Interface Developer Tool Kit is used for creating the front-end features needed by websites like pages, forms and administrative user interfaces (UI) .
 
 ## Framework
 The JavaScript UI Dev KIT is currently built with JavaScript for basic front-end coding, jQuery (3.2.1) for HTML5 / front-end code manipulation, Bootstrap (4.x) for CSS3 / front-end presentation and [POPPER.JS](https://popper.js.org/) for tooltips, popovers and other positioning needs.
