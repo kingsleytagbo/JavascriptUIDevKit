@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+        crossorigin="anonymous">
+    <title>USER ADMINISTRATION - JAVASCRIPT DEV KIT</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">USER ADMIN - JAVASCRIPT DEV KIT</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsKTCore" aria-controls="navbarsKTCore"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsKTCore">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="../">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown" id="navItemRoadmaps">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a id="navItemLogin" name="navItem" href="..login.html" class="dropdown-item">Login</a>
+                        <a id="navItemRegister" name="navItem" href="#" class="dropdown-item">Register</a>
+                    </div>
+                </li>
+            </ul>
+            <!--
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            -->
+        </div>
+    </nav>
+    <div role="main" class="container">
+
+        <div class="row">
+            <div class="col-2"></div>
+
+            <div class="col-8">
+
+                <div class="mt-4 pt-4">
+
+                    <!-- BEGIN USER CARD -->
+                    <div class="card card-info">
+                        <a id="users-top" name="users-top" href="#"></a>
+                        <div class="card-title">
+                            <a class="text-dark text-center" title="Account Services">
+                                <h1>
+                                    Login&nbsp;↴&nbsp;
+                                </h1>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <form id="userForm" name="userForm">
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label>Username:</label>
+                                        <input type="text" class="form-control input-md" id="username" name="username" placeholder="Your Username ..." required />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label>Password:</label>
+                                        <input type="text" class="form-control input-md" id="password" name="lpassword" placeholder="Your Password..." required />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-outline-dark btn-block btn-lg" id="btnSave" onclick="return UserModule.saveForm();">
+                                <i class="fa fa-save"></i>&nbsp;Login</button>
+                        </div>
+                    </div>
+                    <!-- END USER CARD -->
+
+                    <!-- BEGIN USER TABLE -->
+                    <div class="table-responsive mt-2">
+                        <h3 class="text-center">Manage Features</h3>
+                        <table class="table table-striped table-condensed table-hover">
+                            <thead>
+                                <tr>
+                                    <th colspan="4">
+                                        #
+                                    </th>
+                                    <th colspan="3">
+                                        Feature
+                                    </th>
+                                    <th colspan="3">
+                                        Name
+                                    </th>
+                                    <th colspan="2">
+                                        ID
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbody"></tbody>
+                        </table>
+                    </div>
+                    <!-- END USER TABLE -->
+                </div>
+
+            </div>
+
+            <div class="col-2"></div>
+        </div>
+
+        <footer>
+            <nav class="navbar fixed-bottom navbar-expand-sm navbar-light bg-light">
+                <a class="navbar-brand mx-auto text-secondary" href="launchfeatures.com">
+                    <small class="text-center">©&nbsp;All Rights Reserved, JAVASCRIPT UI DEV KIT,
+                        <br />LAUNCHFEATURES.COM
+                    </small>
+                </a>
+            </nav>
+        </footer>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="./Scripts/LocalStorageDatabase.js"></script>
+    <script type="text/javascript" src="./Scripts/UserPageModule.js"></script>
+
+    <!--BEGIN JAVASCRIPT CODE -->
+
+    <script type="text/javascript">
+        /*
+            const UserModule = (function () {
+                // your module code goes here
+                const DATA_KEYID = 'Forms';
+                const formName = 'userForm';
+    
+                return {
+                    cancelForm: function (self) {
+                        $(self).closest('.card').find('.card-body').toggle();
+                        $(self).closest('.card').find('.card-footer').toggle();
+                        this.clearForm();
+                    },
+    
+                    toggleForm: function (self) {
+                        $(self).closest('.card').find('.card-body').toggle();
+                        $(self).closest('.card').find('.card-footer').toggle();
+                    },
+    
+                    clearForm: function () {
+                        $('#' + formName).find('input, select, textarea').each(function () {
+                            $(this).val('');
+                        });
+                    },
+    
+                    //Load Data function
+                    loadData: function () {
+    
+                        let result = database.fetch(DATA_KEYID);
+                        let html = '';
+                        let count = result.length + 1;
+    
+                        $.each(result, function (key, item) {
+                            count -= 1;
+                            html += '<tr>';
+                            html += '<td  colspan="4">' + '<span><strong>' + '' + '</strong></span>' + '<a class="btn btn-outline-dark btn-block btn-sm" href="#" onclick="return UserModule.getbyID(' + "'" + item.Id + "'" + ')"><i class="fa fa-edit"></i>&nbsp;Edit</a> </td>';
+                            html += '<td  colspan="3">' + '<p><span>' + (item.firstName ? item.firstName : '') + '</td>';
+                            html += '<td  colspan="3">' + '<p><span>' + (item.lastName ? item.lastName : '') + '</td>';
+                            html += '<td  colspan="2">' + '<p><span>' + (item.sort ? item.sort : '') + '</td>';
+                            html += '</tr>';
+                        });
+    
+                        $('.tbody').html(html);
+                    },
+    
+                    // Select one item using a unique key
+                    getbyID: function (ID) {
+    
+                        //get one item from a collection based on the item's unique key
+                        let result = database.selectOne(ID, DATA_KEYID);
+    
+                        // Put the value of each field back into the form
+                        $('#' + formName).find('input, select, textarea').each(function () {
+                            let id = $(this).attr('id');
+                            let val = (result[id]) || '';
+                            $(this).val(val);
+                        });
+    
+                        $('#' + formName).closest('.card').find('.card-body').show();
+                        $('#' + formName).closest('.card').find('.card-footer').show();
+    
+                        return false;
+                    },
+    
+                    //Save Data Function
+                    saveForm: function () {
+                        // allow a save if all the needed fields are present on the form.
+                        let res = UserModule.validate();
+                        if (res == false) {
+                            return false;
+                        }
+    
+                        //get the value of all the fields on the form
+                        let model = {};
+                        $('#' + formName).find('input, select, textarea').each(function () {
+                            let key = $(this).attr('id');
+                            let val = $("#" + key).val() || ' ';
+                            model[key] = val;
+                        });
+    
+                        //save the values on the form to a data store
+                        database.save(DATA_KEYID, model);
+                        UserModule.clearForm();
+    
+                        UserModule.toggleForm($('#userHeader'));
+    
+                        //refresh the data on the page after saving it
+                        UserModule.loadData();
+                    },
+    
+                    deleteForm: function () {
+                        let model = {};
+    
+                        $('#' + formName).find('input, select, textarea').each(function () {
+                            let key = $(this).attr('id');
+                            let val = $("#" + key).val() || ' ';
+                            model[key] = val;
+                        });
+    
+                        database.removeOne(DATA_KEYID, model);
+    
+                        UserModule.clearForm();
+                        UserModule.toggleForm($('#userHeader'));
+                        UserModule.loadData();
+                    },
+    
+                    //Valdidation using jquery
+                    validate: function () {
+                        let isValid = true;
+                        if ($('#firstName').val().trim() == "") {
+                            $('#firstName').css('border-color', 'red');
+                            isValid = false;
+                        }
+                        else {
+                            $('#firstName').css('border-color', 'green');
+                        }
+    
+                        if ($('#lastName').val().trim() == "") {
+                            $('#lastName').css('border-color', 'red');
+                            isValid = false;
+                        }
+                        else {
+                            $('#lastName').css('border-color', 'green');
+                        }
+    
+                        if ($('#sort').val().trim() == "") {
+                            $('#sort').css('border-color', 'red');
+                            isValid = false;
+                        }
+                        else {
+                            $('#sort').css('border-color', 'green');
+                        }
+    
+                        return isValid;
+                    }
+                }
+    
+            }());
+    
+            $(document).ready(function () {
+                UserModule.loadData();
+            });
+        */
+        const UserModule = UserPageModule;
+        $(document).ready(function () {
+            UserModule.loadData();
+        });
+
+    </script>
+
+    <!--END JAVASCRIPT CODE-->
+
+</body>
+
+</html>
