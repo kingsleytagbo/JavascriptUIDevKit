@@ -1,7 +1,9 @@
-const LoginPageModule = (function (LocalStorageModule, PageModule) {
+const LoginPageModule = (function (LocalStorageModule, HttpModule, PageModule) {
     /* our module code goes here */
     const database = LocalStorageModule;
     const Page = PageModule;
+    const Http = HttpModule;
+    const self = this;
 
     return {
 
@@ -35,9 +37,13 @@ const LoginPageModule = (function (LocalStorageModule, PageModule) {
             return false;
         },
 
+        saveToken: async function(token){
+           database.saveLogin(this.getAuthenticationKey(), token);
+        },
+
         /* Save Data on a Form */
         saveForm: function (form) {
-
+            const self = this;
             /* allow a save if all the needed fields are present on the form */
             let res = this.validate();
             if (res == false) {
@@ -45,7 +51,7 @@ const LoginPageModule = (function (LocalStorageModule, PageModule) {
             }
 
             /* get the value of all the fields on the form */
-            let model = {};
+            const model = {};
             $(form).find('input, select, textarea').each(function () {
                 let key = $(this).attr('id');
                 let val = $("#" + key).val() || ' ';
@@ -54,8 +60,35 @@ const LoginPageModule = (function (LocalStorageModule, PageModule) {
 
             /* save the values on the form to a data store */
             //database.save(DATA_KEYID, model);
-
-            console.log({model: model})
+            // console.log({model: model, http: Http});
+            if (model.username && model.password) {
+                const response = Http.login(model.username, model.password);
+                response
+                .then(response => response.json())
+                .then(function (result) {
+                    /**
+                     * On Success of Login authentication, save the authentication / login token
+                     */
+                    if (result.authenticated === true) {
+                        self.saveToken(result.auth_token);
+                        Page.gotoPage('/');
+                        //onSuccess();
+                    }
+                    else {
+                        /**
+                         * On Failure of Login authentication, clear the authentication token 
+                         */
+                        self.saveToken(null);
+                        Page.gotoPage('/login.html');
+                        //await setToken(null);
+                        ///onFailure();
+                    }
+                })
+                .catch(async function (error) {
+                        self.saveToken(null);
+                        console.log({ error: error });
+                    });
+            }
 
             // Clear form only if Login is successful
             //Page.clearForm($(form));
@@ -85,12 +118,14 @@ const LoginPageModule = (function (LocalStorageModule, PageModule) {
         /* logout this user by removing authentication */
         logout: function () {
             database.logout(this.getAuthenticationKey());
+            Page.gotoPage('/login.html');
         },
         
         /* checks if a valid authentication credential is present */
         isLoggedIn: function () {
             const data = database.getLogin(this.getAuthenticationKey());
-            return data;
+            const result = (data && new Date(data)) ? true: false;
+            return result;
         },
 
         init: function(){
@@ -103,8 +138,7 @@ const LoginPageModule = (function (LocalStorageModule, PageModule) {
                 $('#navItemLogin').show();
                 $('#navItemLogout').hide();
             }
-            console.log({isLoggedIn: isLoggedIn, Page: Page});
         }
     }
 
-}(LocalStorageModule, PageModule));
+}(LocalStorageModule, HttpModule, PageModule));

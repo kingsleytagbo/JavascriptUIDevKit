@@ -3,7 +3,7 @@ const LocalStorageModule = new function () {
 
     /* saves one item or a list of items */
     this.save = function (key, data) {
-        let items = database.merge(key, data);
+        let items = this.merge(key, data);
         //console.log({key: key, model: items});
         localStorage.setItem(key, JSON.stringify(items));
     };
@@ -12,10 +12,10 @@ const LocalStorageModule = new function () {
     this.fetch = function (key) {
         let data = localStorage.getItem(key);
         if (data) {
-            return database.sort(JSON.parse(data));
+            return this.sort(JSON.parse(data));
         }
         else {
-            database.removeAll(key);
+            thus.removeAll(key);
             return [];
         }
     };
@@ -40,7 +40,7 @@ const LocalStorageModule = new function () {
             let found = false;
 
             if ((!item.Id) || (item.Id.trim().length === 0) || (item.Id.trim() === '')) {
-                item.Id = database.getGuid();
+                item.Id = this.getGuid();
             }
 
             if (dataItems.length > 0) {
@@ -136,7 +136,7 @@ const LocalStorageModule = new function () {
     };
 
     this.logout = function (key) {
-        localStorage.setItem(key, JSON.stringify([]));
+        localStorage.setItem(key, null);
     };
 
 };

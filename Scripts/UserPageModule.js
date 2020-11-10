@@ -1,7 +1,8 @@
-const UserPageModule = (function (database) {
+const UserPageModule = (function (LocalStorageModule, HttpModule, PageModule) {
     /* our module code goes here */
     const DATA_KEYID = 'Forms';
     const formName = 'userForm';
+    const database = LocalStorageModule;
 
     return {
         cancelForm: function (self) {
@@ -133,4 +134,4 @@ const UserPageModule = (function (database) {
         }
     }
 
-}(database));
+}(LocalStorageModule, HttpModule, PageModule));

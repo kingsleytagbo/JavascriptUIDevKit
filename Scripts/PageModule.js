@@ -1,6 +1,7 @@
 const PageModule = (function (LocalStorageModule) {
     /* Page Module used by every Page needs jQuery */
-
+    const database = LocalStorageModule;
+    
     return {
 
         clearForm: function (form) {
@@ -33,7 +34,17 @@ const PageModule = (function (LocalStorageModule) {
             }
 
             return isValid;
-        }
+        },
+
+        gotoPage: function (pageName) {
+            if (pageName) {
+                window.location = pageName;
+                return true;
+            }
+            else {
+                return false;
+            }
+        },
     }
 
 }(LocalStorageModule));
