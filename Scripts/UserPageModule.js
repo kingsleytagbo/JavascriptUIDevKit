@@ -35,7 +35,7 @@ const UserPageModule = (function (LocalStorageModule, HttpModule, PageModule) {
                 response
                     .then(response => response.json())
                     .then(function (users) {
-                        // console.log({ users: users });
+                        //console.log({ users: users });
                         database.save(DATA_KEYID, users);
                         result = users;
                         html = '';
@@ -85,6 +85,7 @@ const UserPageModule = (function (LocalStorageModule, HttpModule, PageModule) {
             /* Put the value of each field back into the form */
             $('#' + formName).find('input, select, textarea').each(function () {
                 let id = $(this).attr('id');
+                // console.log({id: id, result: result, ID: ID, data: database.fetch(DATA_KEYID)})
                 let val = (result[id]) || '';
                 $(this).val(val);
             });
@@ -113,7 +114,7 @@ const UserPageModule = (function (LocalStorageModule, HttpModule, PageModule) {
 
             const currentUser = database.selectOne(model.id, DATA_KEYID);
             const editedUser = currentUser ? Object.assign(currentUser, model) : Object.assign({id: 0}, model);
-            console.log({model: model, currentUser: currentUser, editedUser: editedUser});
+            // console.log({model: model, currentUser: currentUser, editedUser: editedUser});
             /* save the values on the form to a data store */
             if (Page.useApi()) {
                 const response = (model.id && model.id.trim().length > 0 && model.id > 0) ? 

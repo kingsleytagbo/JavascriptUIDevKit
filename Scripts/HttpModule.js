@@ -30,12 +30,12 @@ const HttpModule = (function () {
             const body = {
                 "user": newUser
             };
-            console.log({ 'createUser': user, newUser: newUser});
+            // console.log({ 'createUser': user, newUser: newUser});
             return this.post('/users/createUser', body);
         },
 
         updateUser: function (user) {
-            console.log({ 'updateUser': user });
+            // console.log({ 'updateUser': user });
             const body = {
                 "user": {
                     user

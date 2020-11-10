@@ -4,7 +4,7 @@ const LocalStorageModule = new function () {
     /* saves one item or a list of items */
     this.save = function (key, data) {
         const items = this.merge(key, data);
-        // localStorage.setItem(key, JSON.stringify([]));
+        //localStorage.setItem(key, JSON.stringify([]));
         localStorage.setItem(key, JSON.stringify(items));
     };
 
@@ -43,13 +43,13 @@ const LocalStorageModule = new function () {
                 item.id = this.getGuid();
             }
             */
-
             if (dataItems.length > 0) {
                 for (let d = 0; d < data.length; d++) {
-                    const findUserIndex = dataItems.findIndex(dataItem => dataItem.id.toString() === data[d].id.toString());
+                    const findUserIndex = (dataItems &&  data[d].id ) ? 
+                    dataItems.findIndex(dataItem => String(dataItem.id) === String(data[d].id)) : -1;
                     if (findUserIndex === -1) {
                         found = true;
-                        dataItems.push(data);
+                        dataItems.push(data[d]);
                     }
                     else{
                         dataItems[findUserIndex] = data[d];
@@ -60,6 +60,9 @@ const LocalStorageModule = new function () {
                 dataItems = (data && data.length > 0) ? data : dataItems;
             }
             // console.log({dataItems: dataItems, data: data})
+        }
+        else{
+            return data
         }
         return dataItems;
     }
@@ -84,7 +87,7 @@ const LocalStorageModule = new function () {
            const dataItems = JSON.parse(items);
             let i = dataItems.length
             while (i--) {
-                if (itemKey === dataItems[i].id.toString()) {
+                if (itemKey === String(dataItems[i].id)) {
                     match = dataItems[i];
                     break;
                 }
