@@ -112,11 +112,12 @@ const UserPageModule = (function (LocalStorageModule, HttpModule, PageModule) {
             });
 
             const currentUser = database.selectOne(model.id, DATA_KEYID);
-            const editedUser = Object.assign(currentUser, model);
+            const editedUser = currentUser ? Object.assign(currentUser, model) : Object.assign({id: 0}, model);
             console.log({model: model, currentUser: currentUser, editedUser: editedUser});
             /* save the values on the form to a data store */
             if (Page.useApi()) {
-                const response = Http.updateUser(editedUser);
+                const response = (model.id && model.id.trim().length > 0 && model.id > 0) ? 
+                 Http.updateUser(editedUser) : Http.createUser(editedUser);
                 response
                     .then(response => response.json())
                     .then(function (users) {
@@ -155,7 +156,7 @@ const UserPageModule = (function (LocalStorageModule, HttpModule, PageModule) {
 
         /* Valdidation using jquery */
         validate: function () {
-            let isValid = Page.validate(['user_login', 'user_pass', 'id']);
+            let isValid = Page.validate(['user_login', 'user_pass', 'user_email']);
             return isValid;
         }
     }

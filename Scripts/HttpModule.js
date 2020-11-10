@@ -19,6 +19,16 @@ const HttpModule = (function () {
             return this.post('/users/getUsers', body);
         },
 
+        createUser: function (user) {
+            console.log({ 'createUser': user });
+            const body = {
+                "user": {
+                    user
+                }
+            };
+            return this.post('/users/createUser', body);
+        },
+
         updateUser: function (user) {
             console.log({ 'updateUser': user });
             const body = {
