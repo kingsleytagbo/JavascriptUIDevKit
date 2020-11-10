@@ -38,7 +38,7 @@ const LoginPageModule = (function (LocalStorageModule, HttpModule, PageModule) {
         },
 
         saveToken: async function(token){
-           database.saveLogin(this.getAuthenticationKey(), token);
+           database.saveLogin(Page.getAuthenticationKey(), token);
         },
 
         /* Save Data on a Form */
@@ -112,18 +112,18 @@ const LoginPageModule = (function (LocalStorageModule, HttpModule, PageModule) {
         },
 
         getAuthenticationKey: function () {
-            return 'JavascriptUIDevKit';
+            return Page.getAuthenticationKey();
         },
 
         /* logout this user by removing authentication */
         logout: function () {
-            database.logout(this.getAuthenticationKey());
+            database.logout(Page.getAuthenticationKey());
             Page.gotoPage('/login.html');
         },
         
         /* checks if a valid authentication credential is present */
         isLoggedIn: function () {
-            const data = database.getLogin(this.getAuthenticationKey());
+            const data = database.getLogin(Page.getAuthenticationKey());
             const result = (data && new Date(data)) ? true: false;
             return result;
         },

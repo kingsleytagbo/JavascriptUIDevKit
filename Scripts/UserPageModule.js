@@ -1,8 +1,10 @@
 const UserPageModule = (function (LocalStorageModule, HttpModule, PageModule) {
     /* our module code goes here */
-    const DATA_KEYID = 'Forms';
+    const DATA_KEYID = 'users';
     const formName = 'userForm';
     const database = LocalStorageModule;
+    const Page = PageModule;
+    const Http = HttpModule;
 
     return {
         cancelForm: function (self) {
@@ -24,29 +26,62 @@ const UserPageModule = (function (LocalStorageModule, HttpModule, PageModule) {
 
         /* Load Data function */
         loadData: function () {
-
-            let result = database.fetch(DATA_KEYID);
+            let result = {};
             let html = '';
-            let count = result.length + 1;
+            let count = 0;
 
-            $.each(result, function (key, item) {
-                count -= 1;
-                html += '<tr>';
-                html += '<td  colspan="4">' + '<span><strong>' + '' + '</strong></span>' + '<a class="btn btn-outline-dark btn-block btn-sm" href="#" onclick="return UserPageModule.getbyID(' + "'" + item.Id + "'" + ')"><i class="fa fa-edit"></i>&nbsp;Edit</a> </td>';
-                html += '<td  colspan="3">' + '<p><span>' + (item.firstName ? item.firstName : '') + '</td>';
-                html += '<td  colspan="3">' + '<p><span>' + (item.lastName ? item.lastName : '') + '</td>';
-                html += '<td  colspan="2">' + '<p><span>' + (item.sort ? item.sort : '') + '</td>';
-                html += '</tr>';
-            });
+            if (Page.useApi()) {
+                const response = Http.getUsers();
+                response
+                    .then(response => response.json())
+                    .then(function (users) {
+                        console.log({ users: users });
+                        database.save(DATA_KEYID, users);
+                        result = users;
+                        html = '';
+                        count = result.length + 1;
+        
+                        $.each(result, function (key, item) {
+                            count -= 1;
+                            html += '<tr>';
+                            html += '<td  colspan="4">' + '<span><strong>' + '' + '</strong></span>' + '<a class="btn btn-outline-dark btn-block btn-sm" href="#" onclick="return UserPageModule.getbyID(' + "'" + item.id + "'" + ')"><i class="fa fa-edit"></i>&nbsp;Edit</a> </td>';
+                            html += '<td  colspan="3">' + '<p><span>' + (item.user_login ? item.user_login : '') + '</td>';
+                            html += '<td  colspan="3">' + '<p><span>' + (item.user_login ? item.user_login : '') + '</td>';
+                            html += '<td  colspan="2">' + '<p><span>' + (item.id ? item.id : '') + '</td>';
+                            html += '</tr>';
+                        });
+        
+                        $('.tbody').html(html);
 
-            $('.tbody').html(html);
+                    }).catch(async function (error) {
+                        console.log({ error: error });
+                    });
+            }
+            else {
+                result = database.fetch(DATA_KEYID);
+                html = '';
+                count = result.length + 1;
+
+                $.each(result, function (key, item) {
+                    count -= 1;
+                    html += '<tr>';
+                    html += '<td  colspan="4">' + '<span><strong>' + '' + '</strong></span>' + '<a class="btn btn-outline-dark btn-block btn-sm" href="#" onclick="return UserPageModule.getbyID(' + "'" + item.Id + "'" + ')"><i class="fa fa-edit"></i>&nbsp;Edit</a> </td>';
+                    html += '<td  colspan="3">' + '<p><span>' + (item.firstName ? item.firstName : '') + '</td>';
+                    html += '<td  colspan="3">' + '<p><span>' + (item.lastName ? item.lastName : '') + '</td>';
+                    html += '<td  colspan="2">' + '<p><span>' + (item.id ? item.id : '') + '</td>';
+                    html += '</tr>';
+                });
+
+                $('.tbody').html(html);
+            }
         },
 
         /* Select one item using a unique key */
         getbyID: function (ID) {
 
             /* get one item from a collection based on the item's unique key */
-            let result = database.selectOne(ID, DATA_KEYID);
+            const result = database.selectOne(ID, DATA_KEYID);
+            console.log({result: result, ID: ID, DATA_KEYID: DATA_KEYID})
 
             /* Put the value of each field back into the form */
             $('#' + formName).find('input, select, textarea').each(function () {
@@ -70,7 +105,7 @@ const UserPageModule = (function (LocalStorageModule, HttpModule, PageModule) {
             }
 
             /* get the value of all the fields on the form */
-            let model = {};
+            const model = {};
             $('#' + formName).find('input, select, textarea').each(function () {
                 let key = $(this).attr('id');
                 let val = $("#" + key).val() || ' ';
@@ -88,7 +123,7 @@ const UserPageModule = (function (LocalStorageModule, HttpModule, PageModule) {
         },
 
         deleteForm: function () {
-            let model = {};
+            const model = {};
 
             $('#' + formName).find('input, select, textarea').each(function () {
                 let key = $(this).attr('id');

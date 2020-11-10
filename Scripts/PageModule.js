@@ -36,6 +36,10 @@ const PageModule = (function (LocalStorageModule) {
             return isValid;
         },
 
+        getAuthenticationKey: function () {
+            return 'JavascriptUIDevKit';
+        },
+
         gotoPage: function (pageName) {
             if (pageName) {
                 window.location = pageName;
@@ -45,6 +49,10 @@ const PageModule = (function (LocalStorageModule) {
                 return false;
             }
         },
+
+        useApi: function(){
+            return true;
+        }
     }
 
 }(LocalStorageModule));

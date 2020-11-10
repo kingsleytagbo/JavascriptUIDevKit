@@ -3,8 +3,8 @@ const LocalStorageModule = new function () {
 
     /* saves one item or a list of items */
     this.save = function (key, data) {
-        let items = this.merge(key, data);
-        //console.log({key: key, model: items});
+        const items = this.merge(key, data);
+        // localStorage.setItem(key, JSON.stringify([]));
         localStorage.setItem(key, JSON.stringify(items));
     };
 
@@ -32,30 +32,34 @@ const LocalStorageModule = new function () {
 
     /* syncs both additions or modifications of data */
     this.merge = function (key, data) {
-        let items = localStorage.getItem(key);
+        const items = localStorage.getItem(key);
         let dataItems = [];
         if (items && data) {
             dataItems = JSON.parse(items);
-            let item = data;
             let found = false;
 
-            if ((!item.Id) || (item.Id.trim().length === 0) || (item.Id.trim() === '')) {
-                item.Id = this.getGuid();
+            /*
+            let item = data;
+            if ((!item.id) || (item.id.trim().length === 0) || (item.id.trim() === '')) {
+                item.id = this.getGuid();
             }
+            */
 
             if (dataItems.length > 0) {
-                for (let d = 0; d < dataItems.length; d++) {
-                    if (dataItems[d].Id === item.Id) {
+                for (let d = 0; d < data.length; d++) {
+                    if (dataItems.findIndex(dataItem => dataItem.id.toString() === data[d].id.toString()) === -1) {
                         found = true;
-                        dataItems[d] = item;
-                        break;
+                        dataItems.push(data);
                     }
                 };
             }
-            if (!found) {
-                dataItems.push(item);
+            else{
+                dataItems = (data && data.length > 0) ? data : dataItems;
             }
+            // console.log({dataItems: dataItems, data: data})
         }
+
+        console.log({merge: dataItems})
         return dataItems;
     }
 
@@ -72,13 +76,14 @@ const LocalStorageModule = new function () {
 
     /* selects one item that matches the item's key */
     this.selectOne = function (itemKey, itemsKey) {
-        let items = localStorage.getItem(itemsKey);
+        const items = localStorage.getItem(itemsKey);
         let match = null;
+        console.log({match: match, itemKey: itemKey, dataItems: items})
         if (items) {
-            let dataItems = JSON.parse(items);
+           const dataItems = JSON.parse(items);
             let i = dataItems.length
             while (i--) {
-                if (itemKey === dataItems[i].Id) {
+                if (itemKey === dataItems[i].id.toString()) {
                     match = dataItems[i];
                     break;
                 }
@@ -95,7 +100,7 @@ const LocalStorageModule = new function () {
             let dataItems = JSON.parse(items);
             let i = dataItems.length
             while (i--) {
-                if (data.Id === dataItems[i].Id) {
+                if (data.id === dataItems[i].id) {
 
                     dataItems.splice(i, 1);
 

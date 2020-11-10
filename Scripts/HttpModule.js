@@ -14,6 +14,11 @@ const HttpModule = (function () {
             return this.post('/login', body);
         },
 
+        getUsers: function () {
+            const body = {};
+            return this.post('/users/getUsers', body);
+        },
+
         post: function (destination, body) {
             const headers = {
                 Accept: 'application/json',
