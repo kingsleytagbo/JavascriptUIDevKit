@@ -1,6 +1,6 @@
-const LoginPageModule = (function (database, PageModule) {
+const LoginPageModule = (function (LocalStorageModule, PageModule) {
     /* our module code goes here */
-    const DATA_KEYID = 'LoginForm';
+    const database = LocalStorageModule;
     const Page = PageModule;
 
     return {
@@ -53,10 +53,15 @@ const LoginPageModule = (function (database, PageModule) {
             });
 
             /* save the values on the form to a data store */
-            database.save(DATA_KEYID, model);
-            Page.clearForm($(form));
+            //database.save(DATA_KEYID, model);
 
-            Page.toggleForm($(form));
+            console.log({model: model})
+
+            // Clear form only if Login is successful
+            //Page.clearForm($(form));
+
+            // Toggle only if Login is successful
+            //Page.toggleForm($(form));
 
             /* refresh the data on the page after saving it */
             // Page.loadData();
@@ -102,4 +107,4 @@ const LoginPageModule = (function (database, PageModule) {
         }
     }
 
-}(database, PageModule));
+}(LocalStorageModule, PageModule));

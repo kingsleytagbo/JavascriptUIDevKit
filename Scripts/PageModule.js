@@ -1,4 +1,4 @@
-const PageModule = (function (database) {
+const PageModule = (function (LocalStorageModule) {
     /* Page Module used by every Page needs jQuery */
 
     return {
@@ -36,4 +36,4 @@ const PageModule = (function (database) {
         }
     }
 
-}(database));
+}(LocalStorageModule));
