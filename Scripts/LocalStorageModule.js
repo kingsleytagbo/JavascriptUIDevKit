@@ -37,7 +37,6 @@ const LocalStorageModule = new function () {
         if (items && data) {
             dataItems = JSON.parse(items);
             let found = false;
-
             /*
             let item = data;
             if ((!item.id) || (item.id.trim().length === 0) || (item.id.trim() === '')) {
@@ -47,9 +46,13 @@ const LocalStorageModule = new function () {
 
             if (dataItems.length > 0) {
                 for (let d = 0; d < data.length; d++) {
-                    if (dataItems.findIndex(dataItem => dataItem.id.toString() === data[d].id.toString()) === -1) {
+                    const findUserIndex = dataItems.findIndex(dataItem => dataItem.id.toString() === data[d].id.toString());
+                    if (findUserIndex === -1) {
                         found = true;
                         dataItems.push(data);
+                    }
+                    else{
+                        dataItems[findUserIndex] = data[d];
                     }
                 };
             }
@@ -58,8 +61,6 @@ const LocalStorageModule = new function () {
             }
             // console.log({dataItems: dataItems, data: data})
         }
-
-        console.log({merge: dataItems})
         return dataItems;
     }
 
@@ -78,7 +79,7 @@ const LocalStorageModule = new function () {
     this.selectOne = function (itemKey, itemsKey) {
         const items = localStorage.getItem(itemsKey);
         let match = null;
-        console.log({match: match, itemKey: itemKey, dataItems: items})
+        // console.log({match: match, itemKey: itemKey, dataItems: items})
         if (items) {
            const dataItems = JSON.parse(items);
             let i = dataItems.length

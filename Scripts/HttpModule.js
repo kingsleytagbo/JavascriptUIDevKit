@@ -19,6 +19,16 @@ const HttpModule = (function () {
             return this.post('/users/getUsers', body);
         },
 
+        updateUser: function (user) {
+            console.log({ 'updateUser': user });
+            const body = {
+                "user": {
+                    user
+                }
+            };
+            return this.post('/users/updateUser', body);
+        },
+
         post: function (destination, body) {
             const headers = {
                 Accept: 'application/json',

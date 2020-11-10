@@ -35,7 +35,7 @@ const UserPageModule = (function (LocalStorageModule, HttpModule, PageModule) {
                 response
                     .then(response => response.json())
                     .then(function (users) {
-                        console.log({ users: users });
+                        // console.log({ users: users });
                         database.save(DATA_KEYID, users);
                         result = users;
                         html = '';
@@ -81,7 +81,6 @@ const UserPageModule = (function (LocalStorageModule, HttpModule, PageModule) {
 
             /* get one item from a collection based on the item's unique key */
             const result = database.selectOne(ID, DATA_KEYID);
-            console.log({result: result, ID: ID, DATA_KEYID: DATA_KEYID})
 
             /* Put the value of each field back into the form */
             $('#' + formName).find('input, select, textarea').each(function () {
@@ -112,14 +111,30 @@ const UserPageModule = (function (LocalStorageModule, HttpModule, PageModule) {
                 model[key] = val;
             });
 
+            const currentUser = database.selectOne(model.id, DATA_KEYID);
+            const editedUser = Object.assign(currentUser, model);
+            console.log({model: model, currentUser: currentUser, editedUser: editedUser});
             /* save the values on the form to a data store */
-            database.save(DATA_KEYID, model);
-            UserPageModule.clearForm();
-
-            UserPageModule.toggleForm($('#userHeader'));
-
-            /* refresh the data on the page after saving it */
-            UserPageModule.loadData();
+            if (Page.useApi()) {
+                const response = Http.updateUser(editedUser);
+                response
+                    .then(response => response.json())
+                    .then(function (users) {
+                        UserPageModule.clearForm();
+                        UserPageModule.toggleForm($('#userHeader'));
+                        /* refresh the data on the page after saving it */
+                        UserPageModule.loadData();
+                }).catch(async function (error) {
+                    console.log({ error: error });
+                });
+            }
+            else{
+                database.save(DATA_KEYID, model);
+                UserPageModule.clearForm();
+                UserPageModule.toggleForm($('#userHeader'));
+                /* refresh the data on the page after saving it */
+                UserPageModule.loadData();
+            }
         },
 
         deleteForm: function () {
@@ -140,31 +155,7 @@ const UserPageModule = (function (LocalStorageModule, HttpModule, PageModule) {
 
         /* Valdidation using jquery */
         validate: function () {
-            let isValid = true;
-            if ($('#firstName').val().trim() == "") {
-                $('#firstName').css('border-color', 'red');
-                isValid = false;
-            }
-            else {
-                $('#firstName').css('border-color', 'green');
-            }
-
-            if ($('#lastName').val().trim() == "") {
-                $('#lastName').css('border-color', 'red');
-                isValid = false;
-            }
-            else {
-                $('#lastName').css('border-color', 'green');
-            }
-
-            if ($('#sort').val().trim() == "") {
-                $('#sort').css('border-color', 'red');
-                isValid = false;
-            }
-            else {
-                $('#sort').css('border-color', 'green');
-            }
-
+            let isValid = Page.validate(['user_login', 'user_pass', 'id']);
             return isValid;
         }
     }
