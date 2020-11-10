@@ -151,19 +151,20 @@
         crossorigin="anonymous"></script>
 
     <script type="text/javascript" src="./Scripts/LocalStorageDatabase.js"></script>
+    <script type="text/javascript" src="./Scripts/PageModule.js"></script>
     <script type="text/javascript" src="./Scripts/LoginPageModule.js"></script>
     <script type="text/javascript" src="./Scripts/UserPageModule.js"></script>
 
     <!--BEGIN JAVASCRIPT CODE -->
 
     <script type="text/javascript">
-    
-    const LoginModule = LoginPageModule;
-    const UserModule = UserPageModule;
-    $(document).ready(function () {
-        LoginModule.init();
-        UserModule.loadData();
-    });
+
+        const LoginModule = LoginPageModule;
+        const UserModule = UserPageModule;
+        $(document).ready(function () {
+            LoginModule.init();
+            UserModule.loadData();
+        });
 
     </script>
 

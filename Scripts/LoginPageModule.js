@@ -1,7 +1,7 @@
-const LoginPageModule = (function (database) {
+const LoginPageModule = (function (database, PageModule) {
     /* our module code goes here */
     const DATA_KEYID = 'LoginForm';
-    const formName = 'loginForm';
+    const Page = PageModule;
 
     return {
 
@@ -36,16 +36,17 @@ const LoginPageModule = (function (database) {
         },
 
         /* Save Data on a Form */
-        saveForm: function () {
+        saveForm: function (form) {
+
             /* allow a save if all the needed fields are present on the form */
-            let res = UserPageModule.validate();
+            let res = this.validate();
             if (res == false) {
                 return false;
             }
 
             /* get the value of all the fields on the form */
             let model = {};
-            $('#' + formName).find('input, select, textarea').each(function () {
+            $(form).find('input, select, textarea').each(function () {
                 let key = $(this).attr('id');
                 let val = $("#" + key).val() || ' ';
                 model[key] = val;
@@ -53,12 +54,12 @@ const LoginPageModule = (function (database) {
 
             /* save the values on the form to a data store */
             database.save(DATA_KEYID, model);
-            UserPageModule.clearForm();
+            Page.clearForm($(form));
 
-            UserPageModule.toggleForm($('#userHeader'));
+            Page.toggleForm($(form));
 
             /* refresh the data on the page after saving it */
-            UserPageModule.loadData();
+            // Page.loadData();
         },
 
         /* Delete Data on a Form */
@@ -68,31 +69,7 @@ const LoginPageModule = (function (database) {
 
         /* Validate data using jquery */
         validate: function () {
-            let isValid = true;
-            if ($('#firstName').val().trim() == "") {
-                $('#firstName').css('border-color', 'red');
-                isValid = false;
-            }
-            else {
-                $('#firstName').css('border-color', 'green');
-            }
-
-            if ($('#lastName').val().trim() == "") {
-                $('#lastName').css('border-color', 'red');
-                isValid = false;
-            }
-            else {
-                $('#lastName').css('border-color', 'green');
-            }
-
-            if ($('#sort').val().trim() == "") {
-                $('#sort').css('border-color', 'red');
-                isValid = false;
-            }
-            else {
-                $('#sort').css('border-color', 'green');
-            }
-
+            let isValid = Page.validate(['username', 'password']);
             return isValid;
         },
 
@@ -121,8 +98,8 @@ const LoginPageModule = (function (database) {
                 $('#navItemLogin').show();
                 $('#navItemLogout').hide();
             }
-            console.log({isLoggedIn: isLoggedIn});
+            console.log({isLoggedIn: isLoggedIn, Page: Page});
         }
     }
 
-}(database));
+}(database, PageModule));
