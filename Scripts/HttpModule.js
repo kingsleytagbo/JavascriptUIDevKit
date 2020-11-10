@@ -20,12 +20,17 @@ const HttpModule = (function () {
         },
 
         createUser: function (user) {
-            console.log({ 'createUser': user });
+            const email = user.user_login;
+            const password = user.user_pass;
+            const newUser = {
+                user_login:email, user_pass:password, user_nicename:password,user_email:email,display_name:email,
+                  user_status:1,user_registered:1,user_url:'',user_activation_key:'',spam:0,
+                  deleted:0,site_id:1
+              };
             const body = {
-                "user": {
-                    user
-                }
+                "user": newUser
             };
+            console.log({ 'createUser': user, newUser: newUser});
             return this.post('/users/createUser', body);
         },
 
