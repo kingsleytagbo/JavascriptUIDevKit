@@ -121,5 +121,23 @@ const database = new function () {
         });
     }
 
+    /* saves login credential */
+    this.saveLogin = function (key, data) {
+        localStorage.setItem(key, JSON.stringify(data));
+    };
+
+    this.getLogin = function (key) {
+        let data = localStorage.getItem(key);
+        // console.log({key: key, model: data});
+        if (data) {
+            return JSON.parse(data);
+        }
+        else return {};
+    };
+
+    this.logout = function (key) {
+        localStorage.setItem(key, JSON.stringify([]));
+    };
+
 };
 
